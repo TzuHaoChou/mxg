@@ -12,20 +12,40 @@
 		</uni-search-bar>
 		<!-- #endif -->
 		<searchword @doSearch="doSearch" v-if="!searched"></searchword>
+		
+		<tabr v-model.snsync="tabindex" v-if="searched"></tabr>
+		<block v-if="searched">
+			<course-list ref="mescrollItem0" :i="0" :index="tabindex" :params="params" :content="content"></course-list>
+			<article-list ref="mescrollItem1" :i="1" :index="tabindex" :params="params" :content="content"></article-list>
+			<question-list ref="mescrollItem2" :i="2" :index="tabindex"  :params="params" :content="content"></question-list>
+		</block>
 	</view>
 </template>
 
 <script>
+	import MescrollMoreMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mixins/mescroll-more.js"
+	
+	import courseList from "@/pages/search/components/course-list.vue"
+	import articleList from "@/pages/search/components/article-list.vue"
+	import questionList from "@/pages/search/components/question-List.vue"
 	import searchword from "@/pages/search/components/searchword.vue"
+	// 导航栏
+	import tabr from "@/components/tab-tbr/tab-bar.vue"
+	// 下拉排序组件
+	import downBar from "@/components/down-bar/down-bar.vue"
 	import {
 		HISTORY_EY
 	} from "@/enum/kowrd.js"
 	export default {
+		mixins : [MescrollMoreMixin],
 		components: {
-			searchword
+			searchword,
+			tabr,
+			downBar,courseList,articleList,questionList
 		},
 		data() {
 			return {
+				tabindex:0, //tab默认选择
 				searched: false,
 				content: "",
 				focus: false,
@@ -69,7 +89,7 @@
 					// this.content=options.labelName
 				
 					// 调用搜索框方法
-					this.handelSearchValue(options.labelName)
+					this.handelSearchValue()
 					// 调用搜索值
 					this.doSearch({value : options.labelName})
 				} else {
@@ -89,6 +109,14 @@
 				// 获取输入框输入的内容
 			this.content = obj && obj.value ? obj.value : this.content
 				this.searched = true
+				
+				
+				this.$nextTick(()=>{
+					this.$util.throttle(()=>{
+						this.$refs[`mescrollItem${this.tabindex}`].search()
+					})
+				})
+				
 				this.handlesetLoclData()
 			},
 			// 存储

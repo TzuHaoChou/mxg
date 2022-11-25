@@ -1,5 +1,11 @@
 {
   "usingComponents": {
-    "uni-search-bar": "/components/uni-search-bar/uni-search-bar"
+    "uni-search-bar": "/components/uni-search-bar/uni-search-bar",
+    "searchword": "/pages/search/components/searchword",
+    "tabr": "/components/tab-tbr/tab-bar",
+    "down-bar": "/components/down-bar/down-bar",
+    "course-list": "/pages/search/components/course-list",
+    "article-list": "/pages/search/components/article-list",
+    "question-list": "/pages/search/components/question-List"
   }
 }

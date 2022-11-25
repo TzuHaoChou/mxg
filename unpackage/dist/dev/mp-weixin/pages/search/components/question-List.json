@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "down-bar": "/components/down-bar/down-bar",
+    "mescroll-body": "/uni_modules/mescroll-uni/components/mescroll-body/mescroll-body",
+    "i-course-item": "/components/common/i-course-item"
+  }
+}

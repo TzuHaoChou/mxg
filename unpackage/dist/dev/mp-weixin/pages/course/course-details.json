@@ -1,0 +1,14 @@
+{
+  "onReachBottomDistance": 0,
+  "navigationBarBackgroundColor": "#345DC2",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "course-header": "/pages/course/components/course-header",
+    "tabar": "/components/common/tab-bar",
+    "course-group": "/pages/course/components/course-group",
+    "course-comment": "/pages/course/components/courseComment",
+    "course-dir": "/pages/course/components/course-dir",
+    "course-info": "/pages/course/components/course-info",
+    "bottom-btn": "/pages/course/components/bottom-btn"
+  }
+}

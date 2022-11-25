@@ -16,7 +16,7 @@
 		@change="handleChangeCurrent"
 		>
 			<swiper-item class="swiper-item" v-for="(item,index) in bannerList" :key="item.id">
-				<image :src="item.imageUrl" ></image>
+				<image :src="item.imageUrl" @click="navTo(`${item.advertUrl}`)"></image>
 			</swiper-item>
 		</swiper>
 		

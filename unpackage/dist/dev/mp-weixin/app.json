@@ -6,7 +6,8 @@
     "pages/question/question",
     "pages/my/my",
     "pages/public/web-view",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/course/course-details"
   ],
   "subPackages": [],
   "window": {

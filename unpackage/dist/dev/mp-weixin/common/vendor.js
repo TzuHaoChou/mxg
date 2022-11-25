@@ -2608,7 +2608,6 @@ function normalizeComponent (
     // 页面跳转的方法
     navTo: function navTo(url) {var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       if (!url) return;
-      console.log("456");
 
       if (options.login) {
         uni.navigateTo({
@@ -2626,12 +2625,111 @@ function normalizeComponent (
       uni.navigateBack({
         delta: delta });
 
+    },
+    handelSearchValue: function handelSearchValue(item) {
+      if (item) {
+
+
+
+
+        // h5
+
+
+
+
+
+
+
+
+
+
+
+
+
+      }
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
-/***/ 126:
+/***/ 13:
+/*!*****************************************!*\
+  !*** G:/nuiapp/mxgsi/common/js/util.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.dateFormat = exports.format = exports.throttle = void 0;var _dayjs = _interopRequireDefault(__webpack_require__(/*! dayjs */ 14));
+__webpack_require__(/*! dayjs/locale/zh-cn */ 15);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 导入本地化语言
+_dayjs.default.locale('zh-cn'); // 使用本地化语言
+
+
+// 节流方法
+var _throttleRunning = false; // 用来检测有没有开启节流
+
+var throttle = function throttle(callback) {var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
+
+
+  if (_throttleRunning) {
+    return;
+  }
+
+  _throttleRunning = true;
+
+  setTimeout(function () {
+    callback();
+    _throttleRunning = false;
+  }, delay);
+};
+
+// 手写日期格式化方法
+exports.throttle = throttle;var format = function format(date, fmt) {
+  if (!date) return '';
+
+  var $this = new Date(date) == 'Invalid Date' ? new Date(date.substr(0, 19)) : new Date(date);
+  var o = {
+    "M+": $this.getMonth() + 1, //月份 
+    "d+": $this.getDate(), //日 
+    "h+": $this.getHours(), //小时 
+    "m+": $this.getMinutes(), //分 
+    "s+": $this.getSeconds(), //秒 
+    "q+": Math.floor(($this.getMonth() + 3) / 3), //季度 
+    "S": $this.getMilliseconds() //毫秒 
+  };
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, ($this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  }
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(fmt)) {
+      fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).
+      length));
+    }
+  }
+  return fmt;
+
+};
+
+// 第三方日期格式化方法
+exports.format = format;var dateFormat = function dateFormat(val) {var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
+  return (0, _dayjs.default)(val).format(format);
+};exports.dateFormat = dateFormat;
+
+/***/ }),
+
+/***/ 14:
+/*!*******************************************************!*\
+  !*** G:/nuiapp/mxgsi/node_modules/dayjs/dayjs.min.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function (t, e) { true ? module.exports = e() : undefined;}(this, function () {"use strict";var t = 1e3,e = 6e4,n = 36e5,r = "millisecond",i = "second",s = "minute",u = "hour",a = "day",o = "week",f = "month",h = "quarter",c = "year",d = "date",l = "Invalid Date",$ = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,M = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function ordinal(t) {var e = ["th", "st", "nd", "rd"],n = t % 100;return "[" + t + (e[(n - 20) % 10] || e[n] || e[0]) + "]";} },m = function m(t, e, n) {var r = String(t);return !r || r.length >= e ? t : "" + Array(e + 1 - r.length).join(n) + t;},v = { s: m, z: function z(t) {var e = -t.utcOffset(),n = Math.abs(e),r = Math.floor(n / 60),i = n % 60;return (e <= 0 ? "+" : "-") + m(r, 2, "0") + ":" + m(i, 2, "0");}, m: function t(e, n) {if (e.date() < n.date()) return -t(n, e);var r = 12 * (n.year() - e.year()) + (n.month() - e.month()),i = e.clone().add(r, f),s = n - i < 0,u = e.clone().add(r + (s ? -1 : 1), f);return +(-(r + (n - i) / (s ? i - u : u - i)) || 0);}, a: function a(t) {return t < 0 ? Math.ceil(t) || 0 : Math.floor(t);}, p: function p(t) {return { M: f, y: c, w: o, d: a, D: d, h: u, m: s, s: i, ms: r, Q: h }[t] || String(t || "").toLowerCase().replace(/s$/, "");}, u: function u(t) {return void 0 === t;} },g = "en",D = {};D[g] = M;var p = function p(t) {return t instanceof _;},S = function t(e, n, r) {var i;if (!e) return g;if ("string" == typeof e) {var s = e.toLowerCase();D[s] && (i = s), n && (D[s] = n, i = s);var u = e.split("-");if (!i && u.length > 1) return t(u[0]);} else {var a = e.name;D[a] = e, i = a;}return !r && i && (g = i), i || !r && g;},w = function w(t, e) {if (p(t)) return t.clone();var n = "object" == typeof e ? e : {};return n.date = t, n.args = arguments, new _(n);},O = v;O.l = S, O.i = p, O.w = function (t, e) {return w(t, { locale: e.$L, utc: e.$u, x: e.$x, $offset: e.$offset });};var _ = function () {function M(t) {this.$L = S(t.locale, null, !0), this.parse(t);}var m = M.prototype;return m.parse = function (t) {this.$d = function (t) {var e = t.date,n = t.utc;if (null === e) return new Date(NaN);if (O.u(e)) return new Date();if (e instanceof Date) return new Date(e);if ("string" == typeof e && !/Z$/i.test(e)) {var r = e.match($);if (r) {var i = r[2] - 1 || 0,s = (r[7] || "0").substring(0, 3);return n ? new Date(Date.UTC(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s)) : new Date(r[1], i, r[3] || 1, r[4] || 0, r[5] || 0, r[6] || 0, s);}}return new Date(e);}(t), this.$x = t.x || {}, this.init();}, m.init = function () {var t = this.$d;this.$y = t.getFullYear(), this.$M = t.getMonth(), this.$D = t.getDate(), this.$W = t.getDay(), this.$H = t.getHours(), this.$m = t.getMinutes(), this.$s = t.getSeconds(), this.$ms = t.getMilliseconds();}, m.$utils = function () {return O;}, m.isValid = function () {return !(this.$d.toString() === l);}, m.isSame = function (t, e) {var n = w(t);return this.startOf(e) <= n && n <= this.endOf(e);}, m.isAfter = function (t, e) {return w(t) < this.startOf(e);}, m.isBefore = function (t, e) {return this.endOf(e) < w(t);}, m.$g = function (t, e, n) {return O.u(t) ? this[e] : this.set(n, t);}, m.unix = function () {return Math.floor(this.valueOf() / 1e3);}, m.valueOf = function () {return this.$d.getTime();}, m.startOf = function (t, e) {var n = this,r = !!O.u(e) || e,h = O.p(t),l = function l(t, e) {var i = O.w(n.$u ? Date.UTC(n.$y, e, t) : new Date(n.$y, e, t), n);return r ? i : i.endOf(a);},$ = function $(t, e) {return O.w(n.toDate()[t].apply(n.toDate("s"), (r ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)), n);},y = this.$W,M = this.$M,m = this.$D,v = "set" + (this.$u ? "UTC" : "");switch (h) {case c:return r ? l(1, 0) : l(31, 11);case f:return r ? l(1, M) : l(0, M + 1);case o:var g = this.$locale().weekStart || 0,D = (y < g ? y + 7 : y) - g;return l(r ? m - D : m + (6 - D), M);case a:case d:return $(v + "Hours", 0);case u:return $(v + "Minutes", 1);case s:return $(v + "Seconds", 2);case i:return $(v + "Milliseconds", 3);default:return this.clone();}}, m.endOf = function (t) {return this.startOf(t, !1);}, m.$set = function (t, e) {var n,o = O.p(t),h = "set" + (this.$u ? "UTC" : ""),l = (n = {}, n[a] = h + "Date", n[d] = h + "Date", n[f] = h + "Month", n[c] = h + "FullYear", n[u] = h + "Hours", n[s] = h + "Minutes", n[i] = h + "Seconds", n[r] = h + "Milliseconds", n)[o],$ = o === a ? this.$D + (e - this.$W) : e;if (o === f || o === c) {var y = this.clone().set(d, 1);y.$d[l]($), y.init(), this.$d = y.set(d, Math.min(this.$D, y.daysInMonth())).$d;} else l && this.$d[l]($);return this.init(), this;}, m.set = function (t, e) {return this.clone().$set(t, e);}, m.get = function (t) {return this[O.p(t)]();}, m.add = function (r, h) {var d,l = this;r = Number(r);var $ = O.p(h),y = function y(t) {var e = w(l);return O.w(e.date(e.date() + Math.round(t * r)), l);};if ($ === f) return this.set(f, this.$M + r);if ($ === c) return this.set(c, this.$y + r);if ($ === a) return y(1);if ($ === o) return y(7);var M = (d = {}, d[s] = e, d[u] = n, d[i] = t, d)[$] || 1,m = this.$d.getTime() + r * M;return O.w(m, this);}, m.subtract = function (t, e) {return this.add(-1 * t, e);}, m.format = function (t) {var e = this,n = this.$locale();if (!this.isValid()) return n.invalidDate || l;var r = t || "YYYY-MM-DDTHH:mm:ssZ",i = O.z(this),s = this.$H,u = this.$m,a = this.$M,o = n.weekdays,f = n.months,h = function h(t, n, i, s) {return t && (t[n] || t(e, r)) || i[n].slice(0, s);},c = function c(t) {return O.s(s % 12 || 12, t, "0");},d = n.meridiem || function (t, e, n) {var r = t < 12 ? "AM" : "PM";return n ? r.toLowerCase() : r;},$ = { YY: String(this.$y).slice(-2), YYYY: this.$y, M: a + 1, MM: O.s(a + 1, 2, "0"), MMM: h(n.monthsShort, a, f, 3), MMMM: h(f, a), D: this.$D, DD: O.s(this.$D, 2, "0"), d: String(this.$W), dd: h(n.weekdaysMin, this.$W, o, 2), ddd: h(n.weekdaysShort, this.$W, o, 3), dddd: o[this.$W], H: String(s), HH: O.s(s, 2, "0"), h: c(1), hh: c(2), a: d(s, u, !0), A: d(s, u, !1), m: String(u), mm: O.s(u, 2, "0"), s: String(this.$s), ss: O.s(this.$s, 2, "0"), SSS: O.s(this.$ms, 3, "0"), Z: i };return r.replace(y, function (t, e) {return e || $[t] || i.replace(":", "");});}, m.utcOffset = function () {return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);}, m.diff = function (r, d, l) {var $,y = O.p(d),M = w(r),m = (M.utcOffset() - this.utcOffset()) * e,v = this - M,g = O.m(this, M);return g = ($ = {}, $[c] = g / 12, $[f] = g, $[h] = g / 3, $[o] = (v - m) / 6048e5, $[a] = (v - m) / 864e5, $[u] = v / n, $[s] = v / e, $[i] = v / t, $)[y] || v, l ? g : O.a(g);}, m.daysInMonth = function () {return this.endOf(f).$D;}, m.$locale = function () {return D[this.$L];}, m.locale = function (t, e) {if (!t) return this.$L;var n = this.clone(),r = S(t, e, !0);return r && (n.$L = r), n;}, m.clone = function () {return O.w(this.$d, this);}, m.toDate = function () {return new Date(this.valueOf());}, m.toJSON = function () {return this.isValid() ? this.toISOString() : null;}, m.toISOString = function () {return this.$d.toISOString();}, m.toString = function () {return this.$d.toUTCString();}, M;}(),T = _.prototype;return w.prototype = T, [["$ms", r], ["$s", i], ["$m", s], ["$H", u], ["$W", a], ["$M", f], ["$y", c], ["$D", d]].forEach(function (t) {T[t[1]] = function (e) {return this.$g(e, t[0], t[1]);};}), w.extend = function (t, e) {return t.$i || (t(e, _, w), t.$i = !0), w;}, w.locale = S, w.isDayjs = p, w.unix = function (t) {return w(1e3 * t);}, w.en = D[g], w.Ls = D, w.p = {}, w;});
+
+/***/ }),
+
+/***/ 141:
 /*!***************************************************************!*\
   !*** G:/nuiapp/mxgsi/components/uni-search-bar/i18n/index.js ***!
   \***************************************************************/
@@ -2639,9 +2737,9 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 127));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 128));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 129));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 142));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 143));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 144));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -2649,7 +2747,7 @@ var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 1
 
 /***/ }),
 
-/***/ 127:
+/***/ 142:
 /*!**************************************************************!*\
   !*** G:/nuiapp/mxgsi/components/uni-search-bar/i18n/en.json ***!
   \**************************************************************/
@@ -2660,7 +2758,7 @@ module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-
 
 /***/ }),
 
-/***/ 128:
+/***/ 143:
 /*!*******************************************************************!*\
   !*** G:/nuiapp/mxgsi/components/uni-search-bar/i18n/zh-Hans.json ***!
   \*******************************************************************/
@@ -2671,7 +2769,7 @@ module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-
 
 /***/ }),
 
-/***/ 129:
+/***/ 144:
 /*!*******************************************************************!*\
   !*** G:/nuiapp/mxgsi/components/uni-search-bar/i18n/zh-Hant.json ***!
   \*******************************************************************/
@@ -2682,14 +2780,148 @@ module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-
 
 /***/ }),
 
-/***/ 19:
+/***/ 15:
 /*!**********************************************************!*\
-  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  !*** G:/nuiapp/mxgsi/node_modules/dayjs/locale/zh-cn.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 20);
+!function (e, _) { true ? module.exports = _(__webpack_require__(/*! dayjs */ 14)) : undefined;}(this, function (e) {"use strict";function _(e) {return e && "object" == typeof e && "default" in e ? e : { default: e };}var t = _(e),d = { name: "zh-cn", weekdays: "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"), weekdaysShort: "周日_周一_周二_周三_周四_周五_周六".split("_"), weekdaysMin: "日_一_二_三_四_五_六".split("_"), months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"), monthsShort: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"), ordinal: function ordinal(e, _) {return "W" === _ ? e + "周" : e + "日";}, weekStart: 1, yearStart: 4, formats: { LT: "HH:mm", LTS: "HH:mm:ss", L: "YYYY/MM/DD", LL: "YYYY年M月D日", LLL: "YYYY年M月D日Ah点mm分", LLLL: "YYYY年M月D日ddddAh点mm分", l: "YYYY/M/D", ll: "YYYY年M月D日", lll: "YYYY年M月D日 HH:mm", llll: "YYYY年M月D日dddd HH:mm" }, relativeTime: { future: "%s内", past: "%s前", s: "几秒", m: "1 分钟", mm: "%d 分钟", h: "1 小时", hh: "%d 小时", d: "1 天", dd: "%d 天", M: "1 个月", MM: "%d 个月", y: "1 年", yy: "%d 年" }, meridiem: function meridiem(e, _) {var t = 100 * e + _;return t < 600 ? "凌晨" : t < 900 ? "早上" : t < 1100 ? "上午" : t < 1300 ? "中午" : t < 1800 ? "下午" : "晚上";} };return t.default.locale(d, null, !0), d;});
+
+/***/ }),
+
+/***/ 152:
+/*!*****************************************************************************************************!*\
+  !*** G:/nuiapp/mxgsi/uni_modules/mescroll-uni/components/mescroll-uni/mixins/mescroll-more-item.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * mescroll-more-item的mixins, 仅在多个 mescroll-body 写在子组件时使用 (参考 mescroll-more 案例)
+                                                                                                      */
+var MescrollMoreItemMixin = {
+  // 支付宝小程序不支持props的mixin,需写在具体的页面中
+
+  props: {
+    i: Number, // 每个tab页的专属下标
+    index: { // 当前tab的下标
+      type: Number,
+      default: function _default() {
+        return 0;
+      } } },
+
+
+
+  data: function data() {
+    return {
+      downOption: {
+        auto: false // 不自动加载
+      },
+      upOption: {
+        auto: false // 不自动加载
+      },
+      isInit: false // 当前tab是否已初始化
+    };
+  },
+  watch: {
+    // 监听下标的变化
+    index: function index(val) {
+      if (this.i === val && !this.isInit) this.mescrollTrigger();
+    } },
+
+  methods: {
+    // 以ref的方式初始化mescroll对象 (兼容字节跳动小程序)
+    mescrollInitByRef: function mescrollInitByRef() {
+      if (!this.mescroll || !this.mescroll.resetUpScroll) {
+        // 字节跳动小程序编辑器不支持一个页面存在相同的ref, 多mescroll的ref需动态生成, 格式为'mescrollRef下标'
+        var mescrollRef = this.$refs.mescrollRef || this.$refs['mescrollRef' + this.i];
+        if (mescrollRef) this.mescroll = mescrollRef.mescroll;
+      }
+    },
+    // mescroll组件初始化的回调,可获取到mescroll对象 (覆盖mescroll-mixins.js的mescrollInit, 为了标记isInit)
+    mescrollInit: function mescrollInit(mescroll) {
+      this.mescroll = mescroll;
+      this.mescrollInitByRef && this.mescrollInitByRef(); // 兼容字节跳动小程序
+      // 自动加载当前tab的数据
+      if (this.i === this.index) {
+        this.mescrollTrigger();
+      }
+    },
+    // 主动触发加载
+    mescrollTrigger: function mescrollTrigger() {
+      this.isInit = true; // 标记为true
+      if (this.mescroll) {
+        if (this.mescroll.optDown.use) {
+          this.mescroll.triggerDownScroll();
+        } else {
+          this.mescroll.triggerUpScroll();
+        }
+      }
+    } } };var _default2 =
+
+
+
+MescrollMoreItemMixin;exports.default = _default2;
+
+/***/ }),
+
+/***/ 153:
+/*!*************************************************!*\
+  !*** G:/nuiapp/mxgsi/config/course-down-bar.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = function _default() {
+  return [
+  {
+    type: 'sort', // 标识什么类型
+    name: '综合排序',
+    active: false,
+    list: [{
+      id: null,
+      name: '综合排序' },
+
+    {
+      id: 'new',
+      name: '最新排序' },
+
+    {
+      id: 'hot',
+      name: '热门排序' }] },
+
+
+
+  {
+    type: 'isFree',
+    name: '全部课程',
+    active: false,
+    list: [{
+      id: null,
+      name: '全部课程' },
+
+    {
+      id: 0,
+      name: '付费课程' },
+
+    {
+      id: 1,
+      name: '免费课程' }] },
+
+
+
+  {
+    type: 'label',
+    name: '全部分类',
+    active: false,
+    isCategory: true }];
+
+
+};exports.default = _default;
 
 /***/ }),
 
@@ -2724,7 +2956,84 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 20:
+/***/ 211:
+/*!***********************************************!*\
+  !*** G:/nuiapp/mxgsi/mock/courseGroupData.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = [
+{
+  id: 1, //套餐id
+  title: 'SpringBoot+SpringSecurity组合套餐',
+  groupPrice: 800.00,
+  totalPrice: 1100.00,
+  list: [
+  {
+    id: 1,
+    mainImage: 'http://10.idqqimg.com/qqcourse_logo_ng/ajNVdqHZLLAWb3qFGBhykjmcTvz9CWmwib2Qj7c3Vxjia4y5fgSoNdrMYIdH11Dl1OCraibA7u0mts/600',
+    totalTime: '00:59:08',
+    title: 'SpringBoot项目实战教程SpringCloud OAuth2 Vue分布式微服务架构',
+    nickName: '梦老师1',
+    studyTotal: 999,
+    priceOriginal: 900, // 原价
+    priceDiscount: 800 // 优惠价
+  },
+  {
+    id: 2,
+    mainImage: 'http://10.idqqimg.com/qqcourse_logo_ng/ajNVdqHZLLBdGM96Wcfsn2QlzFiafnHDemtCOy4m6U4yicNvXMg8YfVYzf4ZMxXMPZqq24AibBQt20/600',
+    totalTime: '12:09:18',
+    title: 'Spring Security教程SSO单点登录OAuth2权限管理JWT微服务认证',
+    nickName: '梦老师',
+    studyTotal: 2888,
+    priceOriginal: 500, // 原价
+    priceDiscount: 300 // 优惠价
+  }] },
+
+
+{
+  id: 2, //套餐id
+  title: 'Uniapp+分布式微服务架构组合套餐',
+  groupPrice: 660,
+  totalPrice: 780,
+  list: [
+  {
+    id: 3,
+    mainImage: 'http://10.idqqimg.com/qqcourse_logo_ng/ajNVdqHZLLBdGM96Wcfsn2QlzFiafnHDemtCOy4m6U4yicNvXMg8YfVYzf4ZMxXMPZqq24AibBQt20/600',
+    totalTime: '12:09:18',
+    title: 'uni-app从入门到项目实战教程-梦学谷博客社区APP移动端开发',
+    nickName: '梦老师',
+    studyTotal: 3999,
+    priceOriginal: 600, // 原价
+    priceDiscount: 500 // 优惠价
+  },
+  {
+    id: 4,
+    mainImage: 'http://10.idqqimg.com/qqcourse_logo_ng/ajNVdqHZLLAWb3qFGBhykjmcTvz9CWmwib2Qj7c3Vxjia4y5fgSoNdrMYIdH11Dl1OCraibA7u0mts/600',
+    totalTime: '00:59:08',
+    title: 'SpringBoot项目实战教程SpringCloud OAuth2 Vue分布式微服务架构',
+    nickName: '梦老师',
+    studyTotal: 200,
+    priceOriginal: 300, // 原价
+    priceDiscount: 280 // 优惠价
+  }] }];exports.default = _default;
+
+/***/ }),
+
+/***/ 22:
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ 23);
+
+/***/ }),
+
+/***/ 23:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -2755,7 +3064,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 21);
+module.exports = __webpack_require__(/*! ./runtime */ 24);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -2772,7 +3081,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 21:
+/***/ 24:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -3504,7 +3813,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 22:
+/***/ 25:
 /*!*******************************************************************************************!*\
   !*** G:/nuiapp/mxgsi/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js ***!
   \*******************************************************************************************/
@@ -3572,7 +3881,7 @@ MescrollMixin;exports.default = _default;
 
 /***/ }),
 
-/***/ 23:
+/***/ 26:
 /*!********************************************!*\
   !*** G:/nuiapp/mxgsi/model/searchModel.js ***!
   \********************************************/
@@ -3612,7 +3921,7 @@ SearchModel;exports.default = _default;
 
 /***/ }),
 
-/***/ 24:
+/***/ 27:
 /*!*******************************************!*\
   !*** G:/nuiapp/mxgsi/model/indexModel.js ***!
   \*******************************************/
@@ -3620,7 +3929,7 @@ SearchModel;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));var _index = _interopRequireDefault(__webpack_require__(/*! @/api/index.js */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 22));var _index = _interopRequireDefault(__webpack_require__(/*! @/api/index.js */ 28));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var
 IndexModel = /*#__PURE__*/function () {function IndexModel() {_classCallCheck(this, IndexModel);}_createClass(IndexModel, null, [{ key: "handleOpenScanCode",
 
     // 页码
@@ -3667,7 +3976,7 @@ IndexModel;exports.default = _default;
 
 /***/ }),
 
-/***/ 25:
+/***/ 28:
 /*!************************************!*\
   !*** G:/nuiapp/mxgsi/api/index.js ***!
   \************************************/
@@ -3676,7 +3985,7 @@ IndexModel;exports.default = _default;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 引入http请求文件
+var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 29));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 引入http请求文件
 
 // 轮播图接口
 var getBanner = function getBanner() {var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -3703,7 +4012,7 @@ var _default = {
 
 /***/ }),
 
-/***/ 26:
+/***/ 29:
 /*!****************************************!*\
   !*** G:/nuiapp/mxgsi/utils/request.js ***!
   \****************************************/
@@ -3711,7 +4020,7 @@ var _default = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _index = _interopRequireDefault(__webpack_require__(/*! @/config/index.js */ 27));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _index = _interopRequireDefault(__webpack_require__(/*! @/config/index.js */ 30));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 var request = function request(options) {
   return new Promise(function (resolve, reject) {
@@ -3737,30 +4046,6 @@ var request = function request(options) {
 
 request;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 27:
-/*!***************************************!*\
-  !*** G:/nuiapp/mxgsi/config/index.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var config = {
-
-  // 请求公共接口地址
-  baseUrl: 'http://m.mengxuegu.com/api' };var _default =
-
-
-
-
-
-
-
-
-config;exports.default = _default;
 
 /***/ }),
 
@@ -4225,6 +4510,30 @@ function resolveLocaleChain(locale) {
   return chain;
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
+
+/***/ }),
+
+/***/ 30:
+/*!***************************************!*\
+  !*** G:/nuiapp/mxgsi/config/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var config = {
+
+  // 请求公共接口地址
+  baseUrl: 'http://m.mengxuegu.com/api' };var _default =
+
+
+
+
+
+
+
+
+config;exports.default = _default;
 
 /***/ }),
 
@@ -10289,7 +10598,174 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 75:
+/***/ 73:
+/*!************************************************************************************************!*\
+  !*** G:/nuiapp/mxgsi/uni_modules/mescroll-uni/components/mescroll-uni/mixins/mescroll-more.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * mescroll-body写在子组件时, 需通过mescroll的mixins补充子组件缺少的生命周期
+                                                                                                      */
+var MescrollMoreMixin = {
+  data: function data() {var _this = this;
+    return {
+      tabIndex: 0, // 当前tab下标
+      mescroll: { // mescroll-body写在子子子...组件的情况 (多级)
+        onPageScroll: function onPageScroll(e) {
+          _this.handlePageScroll(e);
+        },
+        onReachBottom: function onReachBottom() {
+          _this.handleReachBottom();
+        },
+        onPullDownRefresh: function onPullDownRefresh() {
+          _this.handlePullDownRefresh();
+        } } };
+
+
+  },
+  // 因为子组件无onPageScroll和onReachBottom的页面生命周期，需在页面传递进到子组件
+  onPageScroll: function onPageScroll(e) {
+    this.handlePageScroll(e);
+  },
+  onReachBottom: function onReachBottom() {
+    this.handleReachBottom();
+  },
+  // 当down的native: true时, 还需传递此方法进到子组件
+  onPullDownRefresh: function onPullDownRefresh() {
+    this.handlePullDownRefresh();
+  },
+  methods: {
+    handlePageScroll: function handlePageScroll(e) {
+      var mescroll = this.getMescroll(this.tabIndex);
+      mescroll && mescroll.onPageScroll(e);
+    },
+    handleReachBottom: function handleReachBottom() {
+      var mescroll = this.getMescroll(this.tabIndex);
+      mescroll && mescroll.onReachBottom();
+    },
+    handlePullDownRefresh: function handlePullDownRefresh() {
+      var mescroll = this.getMescroll(this.tabIndex);
+      mescroll && mescroll.onPullDownRefresh();
+    },
+    // 根据下标获取对应子组件的mescroll
+    getMescroll: function getMescroll(i) {
+      if (!this.mescrollItems) this.mescrollItems = [];
+      if (!this.mescrollItems[i]) {
+        // v-for中的refs
+        var vForItem = this.$refs["mescrollItem"];
+        if (vForItem) {
+          this.mescrollItems[i] = vForItem[i];
+        } else {
+          // 普通的refs,不可重复
+          this.mescrollItems[i] = this.$refs["mescrollItem" + i];
+        }
+      }
+      var item = this.mescrollItems[i];
+      return item ? item.mescroll : null;
+    },
+    // 切换tab,恢复滚动条位置
+    tabChange: function tabChange(i) {
+      var mescroll = this.getMescroll(i);
+      if (mescroll) {
+        // 延时(比$nextTick靠谱一些),确保元素已渲染
+        setTimeout(function () {
+          mescroll.scrollTo(mescroll.getScrollTop(), 0);
+        }, 30);
+      }
+    } } };var _default =
+
+
+
+MescrollMoreMixin;exports.default = _default;
+
+/***/ }),
+
+/***/ 74:
+/*!*************************************!*\
+  !*** G:/nuiapp/mxgsi/enum/kowrd.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.HISTORY_EY = void 0;var HISTORY_EY = 'history_list';exports.HISTORY_EY = HISTORY_EY;
+
+/***/ }),
+
+/***/ 81:
+/*!*****************************************************!*\
+  !*** G:/nuiapp/mxgsi/config/course-details-tabs.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = [{
+  id: 1,
+  name: '详情' },
+
+{
+  id: 2,
+  name: '章节' },
+
+{
+  id: 3,
+  name: '评论' },
+{
+  id: 4,
+  name: '套餐' }];exports.default = _default;
+
+/***/ }),
+
+/***/ 82:
+/*!*************************************!*\
+  !*** G:/nuiapp/mxgsi/api/course.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 29));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+// 课程详情接口
+var getCourseDetail = function getCourseDetail(id) {
+  return (0, _request.default)({ url: "/course/api/course/".concat(id), method: "GET" });
+};
+// 课程章节接口
+var getChapterList = function getChapterList(id) {
+  return (0, _request.default)({ url: "/course/api/chapter/section/list/".concat(id), method: 'GET' });
+};
+
+// 课程评论接口
+var getCommentList = function getCommentList(id) {
+  return (0, _request.default)({ url: "/course/api/comment/list/".concat(id), method: 'GET' });
+};
+
+// 课程套餐接口
+var getGroupList = function getGroupList(id) {
+  return (0, _request.default)({ url: "/course/api/group/list/".concat(id), method: 'GET' });
+};
+
+// 查询课程是否已购买
+var findCourseStatus = function findCourseStatus(id) {
+  return (0, _request.default)({ url: "/course/course/is-buy/".concat(id), method: 'GET' });
+};
+
+// 导出封装的api
+var _default =
+{
+  getCourseDetail: getCourseDetail,
+  getChapterList: getChapterList,
+  getCommentList: getCommentList,
+  getGroupList: getGroupList,
+  findCourseStatus: findCourseStatus };exports.default = _default;
+
+/***/ }),
+
+/***/ 90:
 /*!****************************************************************************************!*\
   !*** G:/nuiapp/mxgsi/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-uni.js ***!
   \****************************************************************************************/
@@ -11100,7 +11576,7 @@ MeScroll.prototype.preventDefault = function (e) {
 
 /***/ }),
 
-/***/ 76:
+/***/ 91:
 /*!***********************************************************************************************!*\
   !*** G:/nuiapp/mxgsi/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-uni-option.js ***!
   \***********************************************************************************************/
@@ -11175,7 +11651,7 @@ GlobalOption;exports.default = _default;
 
 /***/ }),
 
-/***/ 77:
+/***/ 92:
 /*!*****************************************************************************************!*\
   !*** G:/nuiapp/mxgsi/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-i18n.js ***!
   \*****************************************************************************************/
@@ -11202,7 +11678,7 @@ mescrollI18n;exports.default = _default;
 
 /***/ }),
 
-/***/ 78:
+/***/ 93:
 /*!**************************************************************************************!*\
   !*** G:/nuiapp/mxgsi/uni_modules/mescroll-uni/components/mescroll-uni/wxs/mixins.js ***!
   \**************************************************************************************/
