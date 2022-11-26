@@ -5,14 +5,19 @@ import Vue from 'vue'
 import mixins from "@/common/mixins/mixins.js"
 Vue.mixin(mixins)
 
+
 // 引入util
 import * as util from "@/common/js/util.js"
 Vue.prototype.$util = util
+
+// vuex
+import store from "@/store/index.js"
 
 // #ifndef VUE3
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
+	store,
     ...App
 })
 app.$mount()

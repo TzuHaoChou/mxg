@@ -14,7 +14,7 @@
 					<text>￥{{group.groupPrice}}</text>
 					<text>￥{{group.totalPrice}}</text>
 				</view>
-				<text>购买套餐</text>
+				<text @click="Buyapackage(item)">购买套餐</text>
 			</view>
 		</view>
 	</view>
@@ -34,6 +34,11 @@ export default {
 	},
 	components : {
 		iCourseItem
+	},
+	methods:{
+		Buyapackage(item){
+			this.navTo(`/pages/order/confirm-buy?groupCourse=`+encodeURIComponent(JSON.stringify(item)) )
+		}
 	}
 }
 </script>

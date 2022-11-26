@@ -100,26 +100,31 @@
 			this.enableScroll = true
 		},
 		methods: {
+
 			// 点击试看触发的方法
-			handlePlayVideo(data){
+			handlePlayVideo(data) {
 				this.activeObject.chapterIndex = data.activeObject.chapterIndex
 				this.activeObject.sectionsIndex = data.activeObject.sectionIndex
-				
-				console.log(this.isBuy,"aaaa");
-				
-				if(!this.isBuy){
-					this.navTo(`/pages/course/course-play?id=${this.courseId}&chapterIndex=${this.activeObject.chapterIndex}&sectionsIndex=${this.activeObject.sectionsIndex}`)
-					return 
+
+				console.log(this.isBuy, "aaaa");
+
+				if (!this.isBuy) {
+					this.navTo(
+						`/pages/course/course-play?id=${this.courseId}&chapterIndex=${this.activeObject.chapterIndex}&sectionsIndex=${this.activeObject.sectionsIndex}`
+					)
+					return
+				} else {
+
 				}
-			
-				
-				
-				console.log("this.activeObject",this.activeObject)
+
+
+
+				// console.log("this.activeObject",this.activeObject)
 				this.videoUrl = data.data.videoUrl
-				this.$nextTick(()=>{
+				this.$nextTick(() => {
 					this.videoContext.play()
 				})
-				
+
 			},
 			stops() {
 				this.videoContext.stop()
@@ -166,10 +171,9 @@
 				if (this.isBuy || this.courseDetail.isFree === 1) {
 					this.navTo('/pages/course/course-play?id' + this.courseId)
 				} else {
-					// this.navTo("")
+					this.navTo("/pages/order/confirm-buy?course=" + encodeURIComponent(JSON.stringify(this.courseDetail)))
 				}
 			},
-
 			// 获取课程id
 			getCourseId(id) {
 				this.courseId = id

@@ -8,12 +8,12 @@
 				// 导航栏背景演示
 				"navigationBarBackgroundColor": "#345DC2",
 				"app-plus": {
-					 // 取消APP端iOS回弹,避免与下拉刷新冲突
-					"bounce" : "none",
+					// 取消APP端iOS回弹,避免与下拉刷新冲突
+					"bounce": "none",
 					// titleNView 导航栏
 					"titleNView": {
 						// 导航栏背景透明渐变效果 / 不占位
-						"type" : "transparent",
+						"type": "transparent",
 						// 导航栏的输入框
 						"searchInput": {
 							// 设置输入框的提示文字
@@ -32,149 +32,169 @@
 						// 自定义按钮 --- 只在APP端显示
 						// #ifdef APP-PLUS
 						,
-						"buttons": [
-							{
-								"float": "right",
-								"fontSize": "27",
-								"background": "rgba(0,0,0,0)",
-								"fontSrc": "/static/icon/iconfont.ttf",
-								"text": "\ue689"
-							}
-						]
+						"buttons": [{
+							"float": "right",
+							"fontSize": "27",
+							"background": "rgba(0,0,0,0)",
+							"fontSrc": "/static/icon/iconfont.ttf",
+							"text": "\ue689"
+						}]
 						// #endif
 					}
 				}
 			}
-		}
-	    ,{
-            "path" : "pages/category/category",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "分类",
-                "navigationBarBackgroundColor": "#345DC2",
-				"navigationBarTextStyle":"white",
+		}, {
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"navigationBarBackgroundColor": "#345DC2",
+				"navigationBarTextStyle": "white",
 				"app-plus": {
 					"titleNView": {
-						"buttons": [
-							{
-								"float": "right",
-								"fontSize": "18",
-								"background": "rgba(0,0,0,0)",
-								"fontSrc": "/static/icon/iconfont.ttf",
-								"text": "\ue608"
-							}
-						]
+						"buttons": [{
+							"float": "right",
+							"fontSize": "18",
+							"background": "rgba(0,0,0,0)",
+							"fontSrc": "/static/icon/iconfont.ttf",
+							"text": "\ue608"
+						}]
 					}
 				}
-            }
-        }
-        ,{
-            "path" : "pages/article/article",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/question/question",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/my/my",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/public/web-view",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/search/search",
-            "style" :                                                                                    
-            {
-               "app-plus": {
-               	"titleNView": {
-					//隐藏左侧后退按钮（APP）
-					"autoBackButton": false, 
-               		"searchInput": {
-               			"align": "left",
-						"placeholder": "搜索你想要的内容",
-						"borderRadius":"30rpx",
-						"backgroundColor":"#f0f1f2"
-               		},
-					"buttons": [
-						{
+			}
+		}, {
+			"path": "pages/article/article",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/question/question",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/public/web-view",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"app-plus": {
+					"titleNView": {
+						//隐藏左侧后退按钮（APP）
+						"autoBackButton": false,
+						"searchInput": {
+							"align": "left",
+							"placeholder": "搜索你想要的内容",
+							"borderRadius": "30rpx",
+							"backgroundColor": "#f0f1f2"
+						},
+						"buttons": [{
 							"float": "right",
 							"text": "取消",
-							"fontSize":"16",
-							"color":"#2A333B"
-						}
-					]
-               	}
-               }
-            }
-            
-        },
+							"fontSize": "16",
+							"color": "#2A333B"
+						}]
+					}
+				}
+			}
+
+		},
 		{
-			 "path" : "pages/course/course-details",
-			 "style": {
-				 "onReachBottomDistance": 0, //页面距离底部
-			 	"navigationBarBackgroundColor": "#345DC2",
-			 	 "navigationBarTextStyle":"white",
-				 "app-plus": {
-				 	"bounce": "none",
+			"path": "pages/course/course-details",
+			"style": {
+				"onReachBottomDistance": 0, //页面距离底部
+				"navigationBarBackgroundColor": "#345DC2",
+				"navigationBarTextStyle": "white",
+				"app-plus": {
+					"bounce": "none",
 					"scrollIndicator": "none",
 					"titleNView": {
 						"type": "transparent"
-						//#ifdef APP-PLUS
-						,"buttons": [
-							{
-								"type": "share"
-							}
-						]
+							//#ifdef APP-PLUS
+							,
+						"buttons": [{
+							"type": "share"
+						}]
 						//#endif
 					}
-				 }
-			 }
+				}
+			}
 		},
 		{
-		    "path" : "pages/course/course-play",
-		    "style" :                                                                                    
-		    {
-		        "app-plus": {
+			"path": "pages/course/course-play",
+			"style": {
+				"app-plus": {
 					"titleNView": false,
-		        	"subNVues": [
-		        		{
-		        			"id" : "top",
-							"path": "pages/course/subNVue/video",
-							"style": {
-								"width": "50px",
-								"height" : "50px",
-								"background" : "#ccc"
-							}
-		        		}
-		        	]
-		        }
-		    }
-		    
+					"subNVues": [{
+						"id": "top",
+						"path": "pages/course/subNVue/video",
+						"style": {
+							"width": "50px",
+							"height": "50px",
+							"background": "#ccc"
+						}
+					}]
+				}
+			}
+
+		},
+		{
+			"path": "pages/order/confirm-buy",
+			"style": {
+				"navigationBarTitleText": "确认购买",
+				"enablePullDownRefresh": false
+			}
 		}
-        
+
+		, {
+			"path": "pages/auth/login/login",
+			"style": {
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+
+		}
+        ,{
+            "path" : "pages/public/xieyi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/public/yinsi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my/user",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		// 状态栏与导航栏背景色
@@ -184,25 +204,24 @@
 		// 上拉下拉回弹背景色（ios和真机微小程序）
 		"backgroundColor": "#F8F9FB",
 		// iOS APP真机bounce回弹区域默认灰色,建议统一重置为白色
-		"backgroundColorTop":"#FFFFFF"
+		"backgroundColorTop": "#FFFFFF"
 	},
 	"uniIdRouter": {},
 	"tabBar": {
 		// 未选中字体颜色
 		"color": "#b0abb3",
-		 // 选中字体颜色
+		// 选中字体颜色
 		"selectedColor": "#345dc2",
-		 // 边框色
+		// 边框色
 		"borderStyle": "white",
-		 // 背景色
+		// 背景色
 		"backgroundColor": "#f8f8f8",
-		 // 标签栏高度
+		// 标签栏高度
 		"height": "52px",
-		 //字体大小
+		//字体大小
 		"fontSize": "11px",
 		// tabbar配置项
-		"list": [
-			{
+		"list": [{
 				// 首页tabbar对应的页面路径
 				"pagePath": "pages/index/index",
 				// tabbar文字
